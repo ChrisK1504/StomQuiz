@@ -1,9 +1,19 @@
-import { Text, View } from "react-native";
+import QuizSection from "@/components/QuizSection";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 
-export default function Index() {
+export default function App() {
   return (
     <View>
-      <Text>Sa kara ke ne byth?</Text>
+      {/* Quiz Section */}
+      <QuizSection />
     </View>
   );
 }
