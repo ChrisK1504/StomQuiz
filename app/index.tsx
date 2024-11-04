@@ -1,14 +1,8 @@
-import {
-  Button,
-  FlatList,
-  FlatListComponent,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Dimensions, Pressable, Text, View } from "react-native";
 import data from "../constants/json_data";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
+import * as Progress from "react-native-progress";
 
 export default function Index() {
   const [questionIndex, setQuestionIndex] = useState(
@@ -16,6 +10,7 @@ export default function Index() {
   );
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState(null as any);
+  const [count, setCount] = useState(0 as number);
 
   const handleAnswer = (answer: string) => {
     setSelected(answer);
@@ -24,6 +19,7 @@ export default function Index() {
     }
 
     setTimeout(() => {
+      setCount(count + 1);
       setSelected(null);
       setQuestionIndex(Math.floor(Math.random() * 220));
     }, 1500);
@@ -43,7 +39,20 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Text></Text>
+      <Text style={{ color: "#E0BBE4", fontWeight: "semibold" }}>
+        {count} / 50
+      </Text>
+      <Progress.Bar
+        color="#E0BBE4"
+        progress={count / 50}
+        width={Dimensions.get("screen").width * 0.33}
+        height={6}
+        borderRadius={5}
+        animated={true}
+        style={{
+          margin: 20,
+        }}
+      />
       <Text style={styles.questionText}>{data[questionIndex].question}</Text>
       <Pressable
         style={getOptionStyle(data[questionIndex].alternatives[0])}
