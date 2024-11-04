@@ -9,28 +9,40 @@ import data from "../constants/json_data";
 import { useEffect, useState } from "react";
 
 export default function Index() {
-  const [randomNumber, setRandomNumber] = useState(0);
-  useEffect(() => {
-    setRandomNumber(getRandomNumber);
-  }, []);
+  const [questionIndex, setquestionIndex] = useState(
+    Math.floor(Math.random() * 220)
+  );
+  const [score, setScore] = useState(0 as number);
 
-  const getRandomNumber = () => {
-    return Math.floor(Math.random() * 220);
+  const handleAnswer = (answer: string) => {
+    if (answer === data[questionIndex].correctAnswer) {
+      setScore(score + 1);
+      setquestionIndex(Math.floor(Math.random() * 220));
+    }
   };
+
   return (
     <View>
-      <Text>{data[randomNumber].question}</Text>
-      <Pressable>
-        <Text id="A">A) {data[randomNumber].alternatives[0]}</Text>
+      <Text>{data[questionIndex].question}</Text>
+      <Pressable
+        onPress={() => handleAnswer(data[questionIndex].alternatives[0])}
+      >
+        <Text id="A">A) {data[questionIndex].alternatives[0]}</Text>
       </Pressable>
-      <Pressable>
-        <Text id="B">B) {data[randomNumber].alternatives[1]}</Text>
+      <Pressable
+        onPress={() => handleAnswer(data[questionIndex].alternatives[1])}
+      >
+        <Text id="B">B) {data[questionIndex].alternatives[1]}</Text>
       </Pressable>
-      <Pressable>
-        <Text id="C">C) {data[randomNumber].alternatives[2]}</Text>
+      <Pressable
+        onPress={() => handleAnswer(data[questionIndex].alternatives[2])}
+      >
+        <Text id="C">C) {data[questionIndex].alternatives[2]}</Text>
       </Pressable>
-      <Pressable>
-        <Text id="D">D) {data[randomNumber].alternatives[3]}</Text>
+      <Pressable
+        onPress={() => handleAnswer(data[questionIndex].alternatives[3])}
+      >
+        <Text id="D">D) {data[questionIndex].alternatives[3]}</Text>
       </Pressable>
     </View>
   );
