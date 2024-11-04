@@ -8,21 +8,23 @@ export default function Index() {
   const [questionIndex, setQuestionIndex] = useState(
     Math.floor(Math.random() * 220)
   );
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0 as number);
   const [selected, setSelected] = useState(null as any);
   const [count, setCount] = useState(0 as number);
 
   const handleAnswer = (answer: string) => {
     setSelected(answer);
-    if (selected === data[questionIndex].correctAnswer) {
-      setScore(score + 1);
+    if (count < 50) {
+      if (answer === data[questionIndex].correctAnswer) {
+        setScore(score + 1);
+      }
+      setTimeout(() => {
+        setCount(count + 1);
+        setSelected(null);
+        setQuestionIndex(Math.floor(Math.random() * 220));
+      }, 1500);
+    } else {
     }
-
-    setTimeout(() => {
-      setCount(count + 1);
-      setSelected(null);
-      setQuestionIndex(Math.floor(Math.random() * 220));
-    }, 1500);
   };
 
   const getOptionStyle = (option: string) => {
@@ -40,7 +42,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={{ color: "#E0BBE4", fontWeight: "semibold" }}>
-        {count} / 50
+        {score} / 50
       </Text>
       <Progress.Bar
         color="#E0BBE4"
